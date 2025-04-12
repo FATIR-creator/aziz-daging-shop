@@ -84,7 +84,9 @@
         border-radius: 30px;
         font-size: 1rem;
         cursor: pointer;
+        text-decoration: none;
         transition: background-color 0.3s ease, transform 0.3s ease;
+        display: inline-block;
       }
 
       .btn-belanja:hover {
@@ -171,8 +173,7 @@
         Tempat terbaik untuk mendapatkan daging sapi segar dan berkualitas
         tinggi. Selamat berbelanja!
       </p>
-      <a class="btn-belanja" href="home.html"> Belanja Sekarang </a>
-
+      <a class="btn-belanja" href="home.html">Belanja Sekarang</a>
       <a
         class="btn-wa"
         href="https://wa.me/628998688215?text=Halo%20Aziz%20Daging%20Shop!%20Saya%20tertarik%20dengan%20produk%20daging%20Anda."
@@ -192,18 +193,13 @@
         setTimeout(showWelcome, 2000);
       });
 
-      // Fallback: jaga-jaga kalau window.load gak ke-trigger
       setTimeout(showWelcome, 4000);
 
-      // Tampilkan loading sebelum pindah halaman
-      const allLinks = document.querySelectorAll("a, button");
-
+      const allLinks = document.querySelectorAll("a");
       allLinks.forEach((el) => {
         el.addEventListener("click", function (e) {
-          const href = el.getAttribute("href") || el.dataset.href;
-
+          const href = el.getAttribute("href");
           if (el.target === "_blank" || e.ctrlKey || e.metaKey) return;
-
           if (href && href !== "#" && !href.startsWith("javascript:")) {
             e.preventDefault();
             document.getElementById("loading").style.display = "flex";
