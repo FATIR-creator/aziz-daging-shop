@@ -171,7 +171,7 @@
         Tempat terbaik untuk mendapatkan daging sapi segar dan berkualitas
         tinggi. Selamat berbelanja!
       </p>
-      <button class="btn-belanja" onclick="window.location.href='home.html'">
+      <button class="btn-belanja" data-href="home.html">
         Belanja Sekarang
       </button>
       <a
@@ -184,11 +184,35 @@
     <div class="smoke"></div>
 
     <script>
+      function showWelcome() {
+        document.getElementById("loading").style.display = "none";
+        document.querySelector(".welcome-container").style.display = "block";
+      }
+
       window.addEventListener("load", function () {
-        setTimeout(() => {
-          document.getElementById("loading").style.display = "none";
-          document.querySelector(".welcome-container").style.display = "block";
-        }, 2000);
+        setTimeout(showWelcome, 2000);
+      });
+
+      // Fallback: jaga-jaga kalau window.load gak ke-trigger
+      setTimeout(showWelcome, 4000);
+
+      // Tampilkan loading sebelum pindah halaman
+      const allLinks = document.querySelectorAll("a, button");
+
+      allLinks.forEach((el) => {
+        el.addEventListener("click", function (e) {
+          const href = el.getAttribute("href") || el.dataset.href;
+
+          if (el.target === "_blank" || e.ctrlKey || e.metaKey) return;
+
+          if (href && href !== "#" && !href.startsWith("javascript:")) {
+            e.preventDefault();
+            document.getElementById("loading").style.display = "flex";
+            setTimeout(() => {
+              window.location.href = href;
+            }, 1000);
+          }
+        });
       });
     </script>
   </body>
